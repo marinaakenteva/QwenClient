@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatBboxToCenterHundreds } from '../utils/bboxUtils';
 
 interface AnswerDisplayProps {
   answer: string;
@@ -7,6 +8,9 @@ interface AnswerDisplayProps {
 
 const AnswerDisplay: React.FC<AnswerDisplayProps> = ({ answer, status }) => {
   if (!answer && !status) return null;
+
+  // Обрабатываем ответ перед выводом
+  const processedAnswer = answer ? formatBboxToCenterHundreds(answer) : '';
 
   return (
     <div className="w-full p-4 bg-base-100 rounded-box border border-base-300 shadow-sm mt-4 flex flex-col gap-2">
@@ -24,7 +28,7 @@ const AnswerDisplay: React.FC<AnswerDisplayProps> = ({ answer, status }) => {
           aria-live="assertive" 
           className="whitespace-pre-wrap text-base leading-relaxed"
         >
-          {answer}
+          {processedAnswer}
         </div>
       )}
     </div>
